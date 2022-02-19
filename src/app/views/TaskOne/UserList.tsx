@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import { RootState } from "src/store";
 import { useDispatch, useSelector } from "react-redux";
-import Button from "@mui/material/Button";
-import { openDialog } from "src/store/slices/dialog.slice";
 import { getUsersAsync } from "src/store/slices/users.slice";
 import Loader from "src/app/components/Loader";
 
@@ -21,18 +19,11 @@ function UserList() {
   return (
     <div className="">
       <div className="max-w-7xl mx-auto sm:p-6 px-4 py-6">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-gray-600">
-            Task One: <span className="font-light">CRUD</span>
-          </h2>
-
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => dispatch(openDialog())}
-          >
-            Add post
-          </Button>
+        <div className="mb-6">
+          <span className="text-white text-xs uppercase bg-orange-400 px-2 py-1 rounded-xl">
+            NEW
+          </span>
+          <h2 className="text-2xl font-normal text-gray-600">All Users</h2>
         </div>
 
         <div className="flex flex-col">
@@ -79,7 +70,7 @@ function UserList() {
                             <div className="flex-shrink-0 h-10 w-10">
                               <img
                                 className="h-10 w-10 rounded-full"
-                                src="https://joeschmoe.io/api/v1/mira"
+                                src="https://joeschmoe.io/api/v1/random"
                                 alt=""
                               />
                             </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
@@ -7,22 +8,30 @@ function Home() {
         <div className="max-w-7xl mx-auto h-screen sm:p-6 py-6">
           <div className="flex justify-center items-center mb-6">
             <div className="">
-              <hr className="border-t-4 border-orange-400" />
-              <span className="text-sm text-gray-200 font-light">
+              <span className="text-sm text-gray-200 font-light animate-bounce">
                 JavaScript Developer
               </span>
-              <h2 className="text-6xl font-light text-gray-200">
-                Let me show you around
+              <hr className="border-t-2 border-orange-400 my-1" />
+              <h2 className="text-6xl font-thin text-gray-200">
+                Let me show you around.
               </h2>
             </div>
           </div>
 
-          <div className="flex justify-around space-x-6 mt-16">
-            <div className="w-60 h-60 p-4 bg-orange-400 shadow-sm hover:bg-orange-500 cursor-pointer">
-              <p className="text-5xl font-thin text-white">Task 1</p>
-            </div>
-            <div className="w-60 h-60 p-4 bg-orange-400 shadow-sm hover:bg-orange-500 cursor-pointer">
-              <p className="text-5xl font-thin text-white">Task 2</p>
+          <div className="flex justify-center items-center mt-6">
+            <div className="flex sm:space-x-8 space-x-2 mt-16">
+              <Link
+                to="taskone"
+                className="w-60 h-60 p-4 bg-orange-400 shadow-sm hover:bg-orange-500 border-4 border-transparent hover:border-orange-200 cursor-pointer transition-all duration-500 hover:translate-y-4"
+              >
+                <p className="text-5xl font-thin text-white">Task 1</p>
+              </Link>
+              <Link
+                to="tasktwo"
+                className="w-60 h-60 p-4 bg-orange-400 shadow-sm hover:bg-orange-500 border-4 border-transparent hover:border-orange-200 cursor-pointer transition-all duration-500 hover:translate-y-4"
+              >
+                <p className="text-5xl font-thin text-white">Task 2</p>
+              </Link>
             </div>
           </div>
         </div>

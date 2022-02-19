@@ -51,9 +51,10 @@ function TaskOne() {
       <div className="bg-blue-800 sm:py-6 px-4">
         <div className="max-w-7xl mx-auto sm:p-6 py-6">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold text-gray-200">
-              Task One: <span className="font-light">CRUD</span>
-            </h2>
+            <div>
+              <span className="font-light text-gray-300 text-xs">CRUD</span>
+              <h2 className="text-2xl font-bold text-gray-200">Task One</h2>
+            </div>
 
             <div className="space-x-2">
               <Button
