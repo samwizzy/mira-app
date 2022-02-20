@@ -1,5 +1,6 @@
-import React from "react";
+import * as React from "react";
 import { Link } from "react-router-dom";
+import MobileMenu from "./MobileMenu";
 
 function Appbar() {
   return (
@@ -11,7 +12,7 @@ function Appbar() {
           </div>
 
           <nav>
-            <ul className="flex">
+            <ul className="sm:flex hidden">
               <li>
                 <Link
                   className="ml-0 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm uppercase text-sm font-medium text-blue-700 hover:text-white bg-white hover:bg-blue-700"
@@ -37,6 +38,8 @@ function Appbar() {
                 </Link>
               </li>
             </ul>
+
+            <MobileMenu className="sm:hidden block" />
           </nav>
         </div>
       </div>

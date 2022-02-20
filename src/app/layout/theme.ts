@@ -12,8 +12,22 @@ const theme = createTheme({
       light: "#fb923c",
       main: "#f97316",
       dark: "#ea580c",
-      contrastText: "#fff",
+      contrastText: "#000",
     },
+  },
+  typography: {
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
   },
 });
 

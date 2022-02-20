@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import * as React from "react";
 import {
   LineChart,
   Line,
@@ -37,4 +37,4 @@ function Chart({ data }: { data: any }) {
   );
 }
 
-export default memo(Chart);
+export default React.memo(Chart);

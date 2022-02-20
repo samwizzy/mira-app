@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Chart from "./Chart";
-import CountForm from "./CountForm";
+import ChartInfo from "./ChartInfo";
 import { getAwardsApi } from "src/store/slices/chart.slice";
 import { RootState } from "src/store";
 
@@ -37,7 +37,7 @@ export default function TaskTwo() {
 
         <div className="grid grid-cols-12 sm:gap-8 gap-x-0 gap-y-6">
           <div className="sm:col-span-4 col-span-12">
-            <CountForm />
+            <ChartInfo />
           </div>
           <div className="sm:col-span-8 col-span-12 overflow-auto">
             <Chart data={mappedAwards} />
