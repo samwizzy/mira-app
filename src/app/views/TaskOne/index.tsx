@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import * as _ from "lodash";
 import { RootState } from "src/store";
@@ -8,11 +8,11 @@ import Pagination from "@mui/material/Pagination";
 import AddPost from "src/app/views/TaskOne/AddPost";
 import { openDialog, openEditDialog } from "src/store/slices/dialog.slice";
 import {
-  getPostsApi,
+  getPostsAsync,
   deletePostApi,
   postProps,
 } from "src/store/slices/crud.slice";
-import { getUsersApi } from "src/store/slices/users.slice";
+import { getUsersAsync } from "src/store/slices/users.slice";
 import Loader from "src/app/components/Loader";
 import Card from "src/app/components/Card";
 
@@ -24,12 +24,9 @@ function TaskOne() {
   const [page, setPage] = useState<number>(1);
   const count = Math.ceil(posts.length / 10);
 
-  console.log(posts, "posts");
-  console.log(page, "page");
-
   useEffect(() => {
-    dispatch(getPostsApi());
-    dispatch(getUsersApi());
+    dispatch(getPostsAsync());
+    dispatch(getUsersAsync());
   }, [dispatch]);
 
   useEffect(() => {
@@ -38,12 +35,12 @@ function TaskOne() {
     setpaginatedPost(posts.slice(start, end));
   }, [posts, page]);
 
-  const handleChange = (event: any, value: number) => {
+  const handleChange = (event: ChangeEvent<any>, value: number) => {
     setPage(value);
   };
 
   if (loading) {
-    return <Loader className="#fff" />;
+    return <Loader />;
   }
 
   return (

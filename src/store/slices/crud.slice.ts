@@ -1,29 +1,45 @@
-import { createSlice, PayloadAction, Dispatch } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  createAsyncThunk,
+  PayloadAction,
+  Dispatch,
+} from "@reduxjs/toolkit";
 import { closeDialog } from "./dialog.slice";
-import axios from "axios";
-import { JsonBaseURL } from "src/app/config/axiosConfig";
+import { jsonAPI } from "src/app/config/axiosConfig";
+import { AppDispatch } from "../";
 
-export interface postProps {
-  id?: number | null;
+export type postProps = {
+  id: number | null;
   userId: string;
   title?: string;
   body?: string;
-}
+};
 
 interface postsProps {
   posts: postProps[];
   loading: boolean;
+  submitting: boolean;
 }
 
 const initialState: postsProps = {
   posts: [],
   loading: false,
+  submitting: false,
 };
+
+export const getPostsAsync = createAsyncThunk("posts/all", async () => {
+  return await jsonAPI.get(`/posts`).then((response) => {
+    return response.data;
+  });
+});
 
 const postsSlice = createSlice({
   name: "posts",
   initialState: initialState,
   reducers: {
+    setSubmitting: (state, action: PayloadAction<boolean>) => {
+      state.submitting = action.payload;
+    },
     getPosts: (state, action: PayloadAction<postProps[]>) => {
       const posts = action.payload;
       state.posts = posts;
@@ -41,32 +57,45 @@ const postsSlice = createSlice({
       state.posts = state.posts.filter((post) => post.id !== action.payload);
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(getPostsAsync.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(
+      getPostsAsync.fulfilled,
+      (state, action: PayloadAction<postProps[]>) => {
+        state.posts = action.payload;
+        state.loading = false;
+      }
+    );
+    builder.addCase(getPostsAsync.rejected, (state) => {
+      state.loading = false;
+    });
+  },
 });
 
-export const { getPosts, addPost, updatePost, removePost } = postsSlice.actions;
+export const { getPosts, setSubmitting, addPost, updatePost, removePost } =
+  postsSlice.actions;
 
-export const getPostsApi = () => (dispatch: Dispatch) => {
-  return axios.get(`${JsonBaseURL}/posts`).then((response) => {
-    dispatch(getPosts(response.data));
-  });
-};
-
-export const addPostApi = (data: postProps) => (dispatch: Dispatch) => {
-  return axios.post(`${JsonBaseURL}/posts`, data).then((response) => {
-    dispatch(addPost(response.data));
-    dispatch(closeDialog());
-  });
-};
+export const addPostApi =
+  (data: postProps) => async (dispatch: AppDispatch) => {
+    dispatch(setSubmitting(true));
+    return await jsonAPI.post(`/posts`, data).then((response) => {
+      dispatch(addPost(response.data));
+      dispatch(setSubmitting(false));
+      dispatch(closeDialog());
+    });
+  };
 
 export const updatePostApi = (data: postProps) => (dispatch: Dispatch) => {
-  return axios.put(`${JsonBaseURL}/posts/${data.id}`, data).then((response) => {
-    dispatch(updatePost(data));
+  return jsonAPI.put(`/posts/${data.id}`, data).then((response) => {
+    dispatch(updatePost(response.data));
     dispatch(closeDialog());
   });
 };
 
 export const deletePostApi = (id: number) => (dispatch: Dispatch) => {
-  return axios.delete(`${JsonBaseURL}/posts/${id}`).then(() => {
+  return jsonAPI.delete(`/posts/${id}`).then(() => {
     dispatch(removePost(id));
   });
 };

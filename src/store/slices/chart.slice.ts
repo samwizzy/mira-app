@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction, Dispatch } from "@reduxjs/toolkit";
-import axios from "axios";
-import { RapidBaseURL, headers } from "src/app/config/axiosConfig";
+import { rapidAPI } from "src/app/config/axiosConfig";
 
 export interface awardProps {
   id: number;
@@ -42,10 +41,8 @@ const chartSlice = createSlice({
 export const { getAwards } = chartSlice.actions;
 
 export const getAwardsApi = (nconst: string) => (dispatch: Dispatch) => {
-  return axios
-    .get(`${RapidBaseURL}/actors/get-awards?nconst=${nconst}`, {
-      headers: headers,
-    })
+  return rapidAPI
+    .get(`/actors/get-awards?nconst=${nconst}`)
     .then((response) => {
       dispatch(getAwards(response.data));
     });

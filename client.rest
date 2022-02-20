@@ -1,0 +1,12 @@
+
+POST  https://jsonplaceholder.typicode.com/posts
+content-type: application/json
+
+{
+    "title": "Post title",
+    "body": "This is a new dispensation",
+    "userId": 3
+}
+
+
+

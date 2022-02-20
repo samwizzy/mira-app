@@ -1,11 +1,5 @@
-import {
-  createSlice,
-  PayloadAction,
-  Dispatch,
-  createAsyncThunk,
-} from "@reduxjs/toolkit";
-import axios from "axios";
-import { JsonBaseURL } from "src/app/config/axiosConfig";
+import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { jsonAPI } from "src/app/config/axiosConfig";
 
 export interface userProps {
   id: number;
@@ -29,7 +23,7 @@ const initialState: usersProps = {
 };
 
 export const getUsersAsync = createAsyncThunk("users/all", async () => {
-  return await axios.get(`${JsonBaseURL}/users`).then((response) => {
+  return await jsonAPI.get(`/users`).then((response) => {
     return response.data;
   });
 });
@@ -53,22 +47,12 @@ const usersSlice = createSlice({
         state.loading = false;
       }
     );
-    builder.addCase(
-      getUsersAsync.rejected,
-      (state, action: PayloadAction<any>) => {
-        console.log(action, "action rejected");
-        state.loading = false;
-      }
-    );
+    builder.addCase(getUsersAsync.rejected, (state) => {
+      state.loading = false;
+    });
   },
 });
 
 export const { getUsers } = usersSlice.actions;
-
-export const getUsersApi = () => (dispatch: Dispatch) => {
-  return axios.get(`${JsonBaseURL}/users`).then((response) => {
-    dispatch(getUsers(response.data));
-  });
-};
 
 export default usersSlice.reducer;

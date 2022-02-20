@@ -9,6 +9,7 @@ const Home = React.lazy(() => import("./app/views/Home"));
 const TaskOne = React.lazy(() => import("./app/views/TaskOne"));
 const TaskTwo = React.lazy(() => import("./app/views/TaskTwo"));
 const UserList = React.lazy(() => import("./app/views/TaskOne/UserList"));
+const NoMatch = React.lazy(() => import("./app/views/NoMatch"));
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
                 <Route path="users" element={<UserList />} />
               </Route>
               <Route path="tasktwo" element={<TaskTwo />} />
+              <Route path="*" element={<NoMatch />} />
             </Route>
           </Routes>
         </Router>

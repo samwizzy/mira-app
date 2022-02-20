@@ -5,7 +5,7 @@ import Footer from "./Footer";
 import { styled } from "@mui/system";
 
 const Container = styled("div")({
-  minHeight: 600,
+  minHeight: 200,
 });
 
 function Layout() {

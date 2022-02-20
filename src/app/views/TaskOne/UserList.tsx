@@ -3,6 +3,7 @@ import { RootState } from "src/store";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsersAsync } from "src/store/slices/users.slice";
 import Loader from "src/app/components/Loader";
+import BackButton from "src/app/components/BackButton";
 
 function UserList() {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ function UserList() {
   return (
     <div className="">
       <div className="max-w-7xl mx-auto sm:p-6 px-4 py-6">
+        <BackButton />
         <div className="mb-6">
           <span className="text-white text-xs uppercase bg-orange-400 px-2 py-1 rounded-xl">
             NEW

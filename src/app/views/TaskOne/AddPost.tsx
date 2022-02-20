@@ -9,6 +9,7 @@ import FormHelperText from "@mui/material/FormHelperText";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import CircularProgress from "@mui/material/CircularProgress";
 import Button from "src/app/components/Button";
 import {
   addPostApi,
@@ -26,14 +27,15 @@ const defaultValues = {
 function AddPost() {
   const dispatch = useDispatch();
   const users = useSelector(({ users }: RootState) => users.users);
+  const submitting = useSelector(({ crud }: RootState) => crud.submitting);
   const { props, type } = useSelector(({ dialog }: RootState) => dialog);
   const {
     handleSubmit,
     control,
     reset,
     setValue,
-    formState: { errors },
-  } = useForm({ defaultValues });
+    formState: { errors, isValid },
+  } = useForm({ defaultValues, mode: "onChange" });
 
   useEffect(() => {
     const { data } = props;
@@ -50,12 +52,14 @@ function AddPost() {
     reset({}, { keepValues: false });
   };
 
-  console.log(props, "props");
-
   return (
     <AppDialog
       title={type === "new" ? "Create post" : "Update post"}
-      subtitle="Make a post in a min"
+      subtitle={
+        type === "new"
+          ? "Write a post in just a minute"
+          : "Updating post has never been this easy"
+      }
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl fullWidth sx={{ mb: 2 }}>
@@ -103,7 +107,13 @@ function AddPost() {
           <FormHelperText>{errors.userId && "User is required"}</FormHelperText>
         </FormControl>
 
-        <Button type="submit" sx={{ mt: 4 }}>
+        <Button
+          type="submit"
+          sx={{ mt: 4 }}
+          variant="contained"
+          disabled={!isValid}
+          startIcon={submitting && <CircularProgress size={16} />}
+        >
           {type === "new" ? "Save" : "Update"}
         </Button>
       </form>
