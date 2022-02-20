@@ -14,7 +14,7 @@ export const rapidAPI = axios.create({
   baseURL: RapidApiBaseURL,
   headers: {
     "Content-type": "application/json",
-    "x-rapidapi-host": "imdb8.p.rapidapi.com",
-    "x-rapidapi-key": "62bedff9fcmsh45d0a015d0378a0p1bd064jsnf5956b412f2b",
+    "x-rapidapi-host": process.env.REACT_APP_X_RAPIDAPI_HOST as string,
+    "x-rapidapi-key": process.env.REACT_APP_X_RAPIDAPI_KEY as string,
   },
 });
